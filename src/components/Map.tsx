@@ -1,5 +1,5 @@
 import {createContext, ReactNode, useEffect, useRef, useState} from "react";
-import mapboxgl from 'mapbox-gl';
+import mapboxgl, {SourceSpecification} from 'mapbox-gl';
 import {MapStyle} from "./core/MapStyle.ts";
 import styles from './Map.module.scss';
 
@@ -14,9 +14,10 @@ export const MapContext = createContext<MapContextValue>({
   isLoaded: false
 });
 
-type MapProps = {
+export type MapProps<TSource extends SourceSpecification = SourceSpecification> = {
   children?: ReactNode;
   style?: MapStyle;
+  source?: {id: string, data: TSource}[];
 }
 
 export const Map = (props: MapProps) => {
@@ -63,6 +64,21 @@ export const Map = (props: MapProps) => {
       map.off('styledata', styleLoadListener);
     };
   }, [map, props.style, isLoaded]);
+
+  // Add source
+  useEffect(() => {
+    if (!map || !isLoaded || !props.source) return;
+
+    props.source.forEach(({ id, data }) => {
+      map.addSource(id, data);
+    });
+
+    return () => {
+      props.source?.forEach(({ id }) => {
+        map.removeSource(id);
+      });
+    };
+  }, [map, isLoaded, props.source]);
 
   return (
     <MapContext.Provider value={{ map, isLoaded }}>
