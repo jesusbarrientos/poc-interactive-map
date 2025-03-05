@@ -4,6 +4,8 @@ import { Map } from './components';
 import {MapProps} from "./components/Map.tsx";
 import {PinMarker} from "./example/PinMarker.tsx";
 import {GeoJSONSourceSpecification} from "mapbox-gl";
+import {Geolocation} from "./components/Geolocation.tsx";
+import {GeolocationConfirmModal} from "./example/GeolocationConfirmModal.tsx";
 
 function App() {
   const source = [
@@ -47,6 +49,10 @@ function App() {
 
   return (
     <Map source={source as MapProps<GeoJSONSourceSpecification>['source']}>
+      <GeolocationConfirmModal/>
+
+      <Geolocation />
+
       {/* IT CAN BE IMPROVED INSIDE A LAYER COMPONENT */}
       {source[0].data.data.features.map(({ geometry, properties }) => (
         <PinMarker lat={geometry.coordinates[1]} lng={geometry.coordinates[0]} properties={properties}/>
