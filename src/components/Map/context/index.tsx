@@ -1,5 +1,5 @@
-import { PropsWithChildren, useState } from "react";
-import { Map, Marker } from "mapbox-gl";
+import { PropsWithChildren } from "react";
+import { Map } from "mapbox-gl";
 
 import { MapContext } from "./context";
 
@@ -9,15 +9,9 @@ interface MapContextProviderProps {
 }
 
 export const MapContextProvider = ({ map, isLoaded, children }: PropsWithChildren<MapContextProviderProps>) => {
-  const [markersInView, setMarkersInView] = useState<Marker[]>([])
-  const [clusters, setClusters] = useState<Marker[]>([])
-
-  const addMarkerToDisplay = (marker: Marker) => {
-    setMarkersInView([...markersInView, marker])
-  }
-
+  // TODO: here we can add as much data to share as we want
   return (
-    <MapContext.Provider value={{ map, isLoaded, markersInView, clusters, addMarkerToDisplay, setClusters }}>
+    <MapContext.Provider value={{ map, isLoaded }}>
       {children}
     </MapContext.Provider>
   )
