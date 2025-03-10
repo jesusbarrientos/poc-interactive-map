@@ -2,7 +2,6 @@ import { forwardRef, useEffect } from "react";
 
 import styles from './Map.module.scss';
 import { useFeatures } from './useFeatures';
-import { getFeaturesByType } from './utils';
 import { useMap } from './context/useMap';
 import { CustomMarker } from "../CustomMarker/CustomMarker";
 
@@ -11,6 +10,7 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
 
   const { updateFeatures, featuresCurrentlyDisplayed } = useFeatures({ idprefix: "cl" })
 
+  // TODO: should this logic be on the controller
   useEffect(() => {
     if (!map || !isLoaded) return
 
@@ -27,7 +27,6 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
 
         return feat
       })
-      // const { clusters, markers } = getFeaturesByType(features)
 
       updateFeatures({ features: mapped });
     });

@@ -24,21 +24,7 @@ export const useFeatures = ({ idprefix }: { idprefix: string}) => {
 
             const newVal = { ...newState, ...additions }
 
-            JSON.stringify(newVal)
-
             if(JSON.stringify(newVal) !== JSON.stringify(featuresCurrentlyDisplayed)) setFeaturesCurrentlyDisplayed(newVal);
-
-            // const featuresToAdd: MarkersList = {};
-
-            // features.forEach(feature => {
-            //     const id = feature.properties?.id;
-            //     if(featuresCurrentlyDisplayed[id]) return
-            //     feature.properties.visible = true
-            //     featuresToAdd[id] = feature
-            // })
-
-            // if(Object.keys(featuresToAdd).length) setFeaturesCurrentlyDisplayed({ ...featuresCurrentlyDisplayed, ...featuresToAdd});
-            
         }, 10)
     }
 
