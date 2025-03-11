@@ -13,12 +13,15 @@ export const useFeatures = ({ idprefix }: { idprefix: string}) => {
         debounce.current = setTimeout(() => {
             const clonedState = JSON.parse(JSON.stringify(featuresCurrentlyDisplayed))
             const newState: MarkersList = Object.entries(clonedState).reduce(((acc, [id, feature]) => {
-                feature.properties.visible = false
+                (feature as GeoJSONFeature).properties!.visible = false
                 return { ...acc, [id]: feature}
             }), {})
 
             const additions = features.reduce(((acc, feature) => {
-                feature.properties.visible = true
+                if (feature.properties != null) {
+                    feature.properties.visible = true
+                }
+
                 return { ...acc, [idprefix+feature.properties?.id]: feature}
             }), {})
 

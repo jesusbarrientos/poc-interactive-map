@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      geojson:
+        specifier: ^0.5.0
+        version: 0.5.0
       mapbox-gl:
         specifier: ^3.10.0
         version: 3.10.0
@@ -27,6 +30,9 @@ importers:
       '@eslint/js':
         specifier: ^9.19.0
         version: 9.21.0
+      '@types/geojson':
+        specifier: ^7946.0.16
+        version: 7946.0.16
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.10
@@ -888,6 +894,10 @@ packages:
 
   geojson-vt@4.0.2:
     resolution: {integrity: sha512-AV9ROqlNqoZEIJGfm1ncNjEXfkz2hdFlZf0qkVfmkwdKa8vj7H16YUOT81rJw1rdFhyEDlN2Tds91p/glzbl5A==}
+
+  geojson@0.5.0:
+    resolution: {integrity: sha512-/Bx5lEn+qRF4TfQ5aLu6NH+UKtvIv7Lhc487y/c8BdludrCTpiWf9wyI0RTyqg49MFefIAvFDuEi5Dfd/zgNxQ==}
+    engines: {node: '>= 0.10'}
 
   gl-matrix@3.4.3:
     resolution: {integrity: sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==}
@@ -2069,6 +2079,8 @@ snapshots:
   gensync@1.0.0-beta.2: {}
 
   geojson-vt@4.0.2: {}
+
+  geojson@0.5.0: {}
 
   gl-matrix@3.4.3: {}
 

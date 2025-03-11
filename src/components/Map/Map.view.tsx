@@ -7,6 +7,8 @@ import { MarkerContainer } from "../Marker/MarkerContainer.tsx";
 import {POIMarker} from "../Marker/POIMarker.tsx";
 import {ClusterMarker} from "../Marker/ClusterMarker.tsx";
 import {CardContextProvider} from "../Card/context";
+import {GeolocationControl} from "../Geolocation/GeolocationControl.tsx";
+import {Point} from "geojson";
 
 export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
   const { isLoaded, map } = useMap()
@@ -38,13 +40,15 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
 
   return (
     <div ref={mapContainerRef} className={styles.map}>
+      <GeolocationControl/>
+
       <CardContextProvider>
         {isLoaded && Object.values(featuresCurrentlyDisplayed).map((data) => {
           return (
             <MarkerContainer
               key={data.properties?.id}
               isVisible={data.properties?.visible}
-              coordinates={data.geometry.coordinates}
+              coordinates={(data.geometry as Point).coordinates}
             >
               {data.properties?.cluster ?
                 <ClusterMarker>{data.properties.point_count}</ClusterMarker>

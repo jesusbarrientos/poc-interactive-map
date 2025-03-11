@@ -1,8 +1,8 @@
 import {useEffect} from "react";
 import {GeolocateControl} from "mapbox-gl";
-import {useMap} from "./core/useMap.ts";
+import {useMap} from "../Map/context/useMap.ts";
 
-export const Geolocation = () => {
+export const GeolocationControl = () => {
   const { map, isLoaded } = useMap();
 
   useEffect(() => {

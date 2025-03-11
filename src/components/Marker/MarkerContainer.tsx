@@ -4,7 +4,7 @@ import { Marker } from "mapbox-gl";
 import { useMap } from "../Map/context/useMap";
 
 interface MarkerContainerProps {
-    coordinates: [number, number]
+    coordinates: number[]
     isVisible: boolean
 }
 
@@ -26,7 +26,10 @@ export const MarkerContainer = ({ coordinates, isVisible, children }: PropsWithC
     useEffect(() => {
         if (!element.current || !map) return;
 
-        const marker = new Marker({ element: element.current }).setLngLat(coordinates).addTo(map)
+        const marker = new Marker({ element: element.current })
+          .setLngLat(coordinates as [number, number])
+          .addTo(map)
+
         ref.current = marker
 
         return () => { marker.remove() }
