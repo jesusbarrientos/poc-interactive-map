@@ -53,7 +53,7 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
               {data.properties?.cluster ?
                 <ClusterMarker>{data.properties.point_count}</ClusterMarker>
                 :
-                <POIMarker/>
+                <POIMarker properties={data.properties}/>
               }
             </MarkerContainer>
           )

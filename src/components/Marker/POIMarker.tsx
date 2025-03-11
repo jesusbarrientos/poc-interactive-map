@@ -2,13 +2,21 @@ import styles from "./POIMarker.module.scss";
 import {useState} from "react";
 import {useCard} from "../Card/context/useCard.ts";
 
-export const POIMarker = () => {
+type POIMarkerProps = {
+  properties: { [key: string]: any } | null
+}
+
+export const POIMarker = (props: POIMarkerProps) => {
   const { setContent, setVisibility } = useCard();
   const [showPopup, setShowPopup] = useState(false);
 
   const setCardContent = () => {
     setContent(
-      <p>Contenido custom de la card.</p>
+      <p>
+        <b>Terremoto magnitud:</b> {props.properties?.mag}<br/>
+        <b>Tiempo:</b> {props.properties?.time}<br/>
+        <b>Tsunami:</b> {props.properties?.tsunami === 0 ? "No" : "Sí"}
+      </p>
     )
 
     setVisibility(true)

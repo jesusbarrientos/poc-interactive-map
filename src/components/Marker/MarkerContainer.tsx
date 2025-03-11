@@ -1,10 +1,11 @@
 import { PropsWithChildren, useEffect, useRef } from "react";
-import { Marker } from "mapbox-gl";
+import {LngLatLike, Marker} from "mapbox-gl";
 
 import { useMap } from "../Map/context/useMap";
+import {Position} from "geojson";
 
 interface MarkerContainerProps {
-    coordinates: number[]
+    coordinates: Position
     isVisible: boolean
 }
 
@@ -27,7 +28,7 @@ export const MarkerContainer = ({ coordinates, isVisible, children }: PropsWithC
         if (!element.current || !map) return;
 
         const marker = new Marker({ element: element.current })
-          .setLngLat(coordinates as [number, number])
+          .setLngLat(coordinates as LngLatLike)
           .addTo(map)
 
         ref.current = marker
