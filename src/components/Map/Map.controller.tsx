@@ -25,6 +25,7 @@ export const MapController = () => {
 
         map.on('load', () => {
             setIsLoaded(true)
+
             map.addSource('earthquakes', {
                 'type': 'geojson',
                 'data': 'https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson',

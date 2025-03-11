@@ -1,0 +1,26 @@
+.wrapper {
+  position: relative;
+}
+
+.marker {
+  content: url("https://www.svgrepo.com/show/292182/pointer-pin.svg");
+  transform-origin: bottom;
+  max-height: 40px;
+
+  &:hover {
+    cursor: pointer;
+    filter: invert(0.7);
+  }
+}
+
+.popup {
+  position: absolute;
+  top: -170%;
+  left: -25%;
+  padding: 8px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 4px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}

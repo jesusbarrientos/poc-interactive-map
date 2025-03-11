@@ -3,12 +3,12 @@ import { Marker } from "mapbox-gl";
 
 import { useMap } from "../Map/context/useMap";
 
-interface CustomMarkerProps {
+interface MarkerContainerProps {
     coordinates: [number, number]
     isVisible: boolean
 }
 
-export const CustomMarker = ({ coordinates, isVisible, children }: PropsWithChildren<CustomMarkerProps>) => {
+export const MarkerContainer = ({ coordinates, isVisible, children }: PropsWithChildren<MarkerContainerProps>) => {
     const { map } = useMap()
     const element = useRef<HTMLDivElement>(null);
     const ref = useRef<Marker>(null);

@@ -3,7 +3,10 @@ import { forwardRef, useEffect } from "react";
 import styles from './Map.module.scss';
 import { useFeatures } from './useFeatures';
 import { useMap } from './context/useMap';
-import { CustomMarker } from "../CustomMarker/CustomMarker";
+import { MarkerContainer } from "../Marker/MarkerContainer.tsx";
+import {POIMarker} from "../Marker/POIMarker.tsx";
+import {ClusterMarker} from "../Marker/ClusterMarker.tsx";
+import {CardContextProvider} from "../Card/context";
 
 export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
   const { isLoaded, map } = useMap()
@@ -21,7 +24,7 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
       const mapped = features.map(feat => {
         const isCluster = feat.properties?.cluster_id
 
-        if (isCluster) {
+        if (isCluster && feat.properties) {
           feat.properties.id = feat.properties?.cluster_id
         }
 
@@ -33,19 +36,25 @@ export const MapView = forwardRef<HTMLDivElement>((_, mapContainerRef) => {
 
   }, [isLoaded, map, updateFeatures])
 
-  return (<>
-    {isLoaded && Object.values(featuresCurrentlyDisplayed).map((data) => {
-      return <CustomMarker key={data.properties.id} isVisible={data.properties?.visible} coordinates={data.geometry.coordinates}>
-        {data.properties.cluster ?
-          <div className={styles.cluster} >{data.properties.point_count}</div>
-          :
-          <div className={styles.marker}></div>
-        }
-      </CustomMarker>
-    })}
-
+  return (
     <div ref={mapContainerRef} className={styles.map}>
+      <CardContextProvider>
+        {isLoaded && Object.values(featuresCurrentlyDisplayed).map((data) => {
+          return (
+            <MarkerContainer
+              key={data.properties?.id}
+              isVisible={data.properties?.visible}
+              coordinates={data.geometry.coordinates}
+            >
+              {data.properties?.cluster ?
+                <ClusterMarker>{data.properties.point_count}</ClusterMarker>
+                :
+                <POIMarker/>
+              }
+            </MarkerContainer>
+          )
+        })}
+      </CardContextProvider>
     </div>
-  </>
   )
 })
